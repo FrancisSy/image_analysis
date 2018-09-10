@@ -19,6 +19,7 @@ RMS = 50 # root mean square
 
 class imageAnalysis():
     def __init__(self, master): # class constructor
+        # master window
         self.master = master
         self.master.title('Image Analysis')
         self.master.resizable(False, False)
@@ -26,37 +27,41 @@ class imageAnalysis():
         self.main_frame.pack(padx = 5, pady = 5)
         ttk.Label(self.main_frame, text = 'Search Directory:').grid(row = 0, column = 0, sticky = 'w')
 
+        # directory window
         self.path_entry = ttk.Entry(self.main_frame, width = 54)
         self.path_entry.grid(row = 1, column = 0, sticky ='e')
-        self.path_entry.insert(0, '.\\images') # default search folder
+        self.path_entry.insert(0, '.\\default') # default search folder
 
-        self.browse_button = ttk.Button(self.main_frame, text = 'Browse...', command = self.browse_callback)
+        # browse button
+        self.browse_button = ttk.Button(self.main_frame, text = 'Browse...', command = self.browse)
         self.browse_button.grid(row = 1, column = 1, sticky = 'w')
-        self.search_button = ttk.Button(self.main_frame, text='Find Subset Images', command=self.search_callback)
+        self.search_button = ttk.Button(self.main_frame, text='Find Subset Images', command=self.search)
         self.search_button.grid(row=2, column=0, columnspan=2)
 
+        # result table
         self.results_table = ttk.Treeview(self.main_frame, column=('subset'))
         self.results_table.heading('#0', text='Original Image')
         self.results_table.column('#0', width=200)
         self.results_table.heading('subset', text='Subset Image')
         self.results_table.column('subset', width=200)
 
+        # status frame
         self.status_frame = ttk.Frame(self.master)
         self.status_frame.pack(fill=BOTH, expand=True)
-
         self.status_var = StringVar()
         self.status_label = ttk.Label(self.status_frame, textvariable=self.status_var)
 
+        # progress bar
         self.progress_var = DoubleVar()
         self.progressbar = ttk.Progressbar(self.status_frame, mode='determinate',
                                            variable=self.progress_var)
 
-    def browse_callback(self):
+    def browse(self):
         path = filedialog.askdirectory(initialdir = self.path_entry.get())
         self.path_entry.delete(0, END)
         self.path_entry.insert(0, path)
 
-    def search_callback(self):
+    def search(self):
         self.start_time = time()
 
         # file extensions supported
@@ -169,7 +174,7 @@ class imageAnalysis():
             self.browse_button.state(['!disabled'])
             self.search_button.state(['!disabled'])
             elapsed_time = time() - self.start_time
-            self.status_var.set("Analyzing finished. Elapsed Time: {0:.2f} seconds".format(elapsed_time))
+            self.status_var.set("Task finished. Elapsed Time: {0:.2f} seconds".format(elapsed_time))
 
 # main function
 def main():
