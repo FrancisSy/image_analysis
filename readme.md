@@ -5,5 +5,5 @@ This program is written in the Python Programming Language.
 It was written in the Python version 3.6.
 
 
-To get this program to run, you will need to install the PILLOW (PIL Fork) Library. YOu can install PILLOW at this link: https://pillow.readthedocs.io/en/latest/installation.html
+To get this program to run, you will need to install the PILLOW (PIL Fork) Library. You can install PILLOW at this link: https://pillow.readthedocs.io/en/latest/installation.html
 
